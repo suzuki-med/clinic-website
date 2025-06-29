@@ -55,7 +55,6 @@
 
   <section id="infection">
     <h2>■ 外来感染対策の取り組み</h2>
-    <p>当院では、院内感染防止のため以下のような標準感染対策を実施しております：</p>
     <ul>
       <li>発熱や咳などの症状がある患者様には、受診時に問診・体調確認を行っています。</li>
       <li>医師・スタッフはマスク着用・手指消毒を徹底し、診察毎の環境清拭を実施しています。</li>
@@ -66,13 +65,13 @@
 
   <section id="greeting">
     <h2>■ ごあいさつ・診療方針</h2>
-    <p>当院は、地域の皆さまに信頼される「かかりつけ医」を目指しています。患者様の不安や不調に寄り添い、必要に応じて専門医療機関とも連携しながら、最適な医療を提供してまいります。</p>
+    <p>当院は、地域の皆さまに信頼される「かかりつけ医」を目指しています。<br>患者様の不安や不調に寄り添い、必要に応じて専門医療機関とも連携しながら、最適な医療を提供してまいります。</p>
   </section>
 
   <section id="access">
     <h2>■ アクセス</h2>
     <p>〒466-0821<br>愛知県名古屋市昭和区花見通2-10<br>地下鉄鶴舞線「いりなか駅」より徒歩8分<br>地下鉄鶴舞線「川名駅」より徒歩7分<br>駐車場：4台分あり</p>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.3298793155927!2d136.9514448!3d35.1471251" height="300" allowfullscreen loading="lazy"></iframe>
+    <iframe src="https://maps.google.com/maps?q=愛知県名古屋市昭和区花見通2-10&t=&z=15&ie=UTF8&iwloc=&output=embed" height="300" allowfullscreen loading="lazy"></iframe>
   </section>
 
   <section id="contact">
@@ -93,7 +92,6 @@
         .then(res => res.text())
         .then(csv => {
           const lines = csv.trim().split("\n");
-
           const data = lines.map(line => {
             const [dateStr, ...rest] = line.split(",");
             const text = rest.join(",");
@@ -101,7 +99,7 @@
             return { date, dateStr, text };
           });
 
-          data.sort((a, b) => b.date - a.date);
+          data.sort((a, b) => b.date - a.date); // 日付で新しい順にソート
 
           const ul = document.getElementById("news-list");
           ul.innerHTML = "";
