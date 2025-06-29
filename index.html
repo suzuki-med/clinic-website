@@ -10,7 +10,7 @@
     header { background-color: #0077cc; color: white; text-align: center; }
     footer { font-size: 0.8em; text-align: center; color: #555; }
     h2 { border-bottom: 2px solid #0077cc; padding-bottom: 5px; }
-    ul { padding-left: 1.2em; }
+    ul { padding-left: 1.2em; list-style-type: disc; }
     ul li { margin-bottom: 0.5em; }
     iframe { width: 100%; border: 0; margin-top: 10px; }
   </style>
@@ -25,14 +25,15 @@
   <section id="news">
     <h2>お知らせ</h2>
     <ul id="news-list">
-      <!-- ここにシートから読み込んだお知らせが表示されます -->
+      <!-- CSV 取得でここに自動挿入 -->
     </ul>
   </section>
 
   <section id="services">
-    <h2>診療案内</h2>
+    <h2>■ 診療案内</h2>
     <p>当院では以下の診療科目を設けております：<br>
-       <strong>内科・呼吸器内科・アレルギー科・胃腸内科</strong></p>
+      <strong>内科・呼吸器内科・アレルギー科・胃腸内科</strong>
+    </p>
     <p><strong>診療時間</strong></p>
     <ul>
       <li>月〜金：午前9:00〜12:00、午後16:00〜19:00</li>
@@ -42,7 +43,7 @@
   </section>
 
   <section id="pricing">
-    <h2>自由診療・予防接種・健診料金</h2>
+    <h2>■ 自由診療・予防接種・健診料金</h2>
     <p><strong>ワクチン</strong></p>
     <ul>
       <li>インフルエンザ：3,500円（税込）</li>
@@ -58,7 +59,7 @@
   </section>
 
   <section id="policy">
-    <h2>加算体制・オンライン資格確認について</h2>
+    <h2>■ 加算体制・オンライン資格確認について</h2>
     <ul>
       <li><strong>医療情報取得加算</strong>：マイナンバーカードによるオンライン資格確認を導入し、診療情報・薬剤情報等を活用しています。</li>
       <li><strong>医療DX推進体制整備加算</strong>：電子処方箋および電子カルテ情報共有体制を備えています。</li>
@@ -67,25 +68,25 @@
   </section>
 
   <section id="smoking">
-    <h2>禁煙外来のご案内</h2>
+    <h2>■ 禁煙外来のご案内</h2>
     <p>当院では、保険診療における禁煙外来（ニコチン依存症管理料）に対応しています。<br>
        一定の条件を満たした患者様に対し、禁煙補助薬を用いた治療が可能です。詳細は医師にご相談ください。</p>
   </section>
 
   <section id="infection">
-    <h2>外来感染対策の取り組み</h2>
+    <h2>■ 外来感染対策の取り組み</h2>
     <p>発熱や咳など感染症状のある方は、一般の患者様と動線を分け、専用スペースで診察を行っております。<br>
        安心して受診いただけるよう、標準感染対策を徹底しています。</p>
   </section>
 
   <section id="greeting">
-    <h2>ごあいさつ・診療方針</h2>
+    <h2>■ ごあいさつ・診療方針</h2>
     <p>当院は、地域の皆さまに信頼される「かかりつけ医」を目指しています。<br>
        患者様の不安や不調に寄り添い、必要に応じて専門医療機関とも連携しながら、最適な医療を提供してまいります。</p>
   </section>
 
   <section id="access">
-    <h2>アクセス</h2>
+    <h2>■ アクセス</h2>
     <p>
       〒466-0821<br>
       愛知県名古屋市昭和区花見通2-10<br>
@@ -93,14 +94,14 @@
       地下鉄鶴舞線「川名駅」より徒歩7分<br>
       駐車場：4台分あり
     </p>
-    <iframe
+    <iframe 
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.3298793155927!2d136.9514448!3d35.1471251!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600370cf7e4fa84f%3A0x3ae649fdfd4a2380!2z44CSNDY2LTA4MjEg5oSb55-l55yM5ZCN5Y-k5bGL5a6u5biC6I2S5ZCN5Y-k77yU5LiB55uu77yR77yT4oiS77yR77yY!5e0!3m2!1sja!2sjp!4v1719655900000!5m2!1sja!2sjp"
       width="100%" height="300" allowfullscreen loading="lazy">
     </iframe>
   </section>
 
   <section id="contact">
-    <h2>お問い合わせ</h2>
+    <h2>■ お問い合わせ</h2>
     <p>お電話：052-832-3120（受付時間内）<br>
        ※現在、メールでのお問い合わせは対応しておりません。</p>
   </section>
@@ -110,29 +111,25 @@
   </footer>
 
   <script>
-    (()=>{
-      // ● ここにご自身のスプレッドシートIDをセットしてください
+    (function(){
       const sheetId = "1RwJONr5sVQNRBcleuAYxx_T0oh5BnpPdi0_1luGVZ90";
-      // ● gid=0 は左端のシート。別タブならスプレッド上部メニュー「シートのID」を調べて置き換え
-      const csvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=0`;
+      const url = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=0`;
 
-      fetch(csvUrl)
+      fetch(url)
         .then(res => {
           if (!res.ok) throw new Error("スプレッドシート取得エラー");
           return res.text();
         })
-        .then(csvText => {
-          const lines = csvText.trim().split("\n");
-          const list = document.getElementById("news-list");
-          list.innerHTML = "";
-
+        .then(csv => {
+          const lines = csv.trim().split("\n");
+          const ul = document.getElementById("news-list");
+          ul.innerHTML = "";
           lines.forEach(line => {
-            // A列=日付文字列、B列以降=テキスト
-            const [date, ...rest] = line.split(",");
-            const text = rest.join(",");
+            const [date, ...texts] = line.split(",");
+            const text = texts.join(",");
             const li = document.createElement("li");
             li.textContent = `${date}：${text}`;
-            list.appendChild(li);
+            ul.appendChild(li);
           });
         })
         .catch(err => {
