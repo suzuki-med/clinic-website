@@ -1,36 +1,67 @@
-<script>
-  const sheetId = "1RwJONr5sVQNRBcleuAYxx_T0oh5BnpPdi0_1luGVZ90";
-  const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=Sheet1`;
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>鈴木内科｜名古屋市昭和区の地域密着型クリニック</title>
+  <style>
+    body { font-family: sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f9f9f9; }
+    header, footer, section { padding: 20px; max-width: 800px; margin: auto; background: white; margin-bottom: 10px; }
+    header { background-color: #0077cc; color: white; text-align: center; }
+    footer { font-size: 0.8em; text-align: center; color: #555; }
+    h2 { border-bottom: 2px solid #0077cc; padding-bottom: 5px; }
+    iframe { width: 100%; border: 0; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>鈴木内科</h1>
+    <p>名古屋市昭和区花見通にある地域密着型のクリニックです。<br>身近な「かかりつけ医」として、安心できる医療を提供しています。</p>
+  </header>
 
-  fetch(url)
-    .then(res => res.text())
-    .then(data => {
-      const json = JSON.parse(data.substr(47).slice(0, -2));
-      const rows = json.table.rows;
-      const list = document.getElementById("news-list");
-      list.innerHTML = "";
-      rows.forEach(row => {
-        const dateValue = row.c[0]?.v || "";
-        const text = row.c[1]?.v || "";
-        const li = document.createElement("li");
+  <section id="news">
+    <h2>お知らせ</h2>
+    <ul id="news-list">
+      <!-- ここにスプレッドシートのお知らせが自動で入ります -->
+    </ul>
+  </section>
 
-        let formattedDate = "";
+  <!-- 以下、他セクションは省略 -->
 
-        if (typeof dateValue === "string") {
-          // "2025/07/01" のような文字列はそのまま使う
-          formattedDate = dateValue;
-        } else {
-          // Date型ならフォーマットして表示
-          const d = new Date(dateValue);
-          formattedDate = d.toLocaleDateString("ja-JP", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit"
-          });
-        }
+  <footer>
+    <p>&copy; 2025 鈴木内科. All Rights Reserved.</p>
+  </footer>
 
-        li.textContent = `${formattedDate}：${text}`;
-        list.appendChild(li);
+  <script>
+    // ① シートIDをセット
+    const sheetId = "1RwJONr5sVQNRBcleuAYxx_T0oh5BnpPdi0_1luGVZ90";
+    const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=Sheet1`;
+
+    fetch(url)
+      .then(res => res.text())
+      .then(txt => {
+        // JSON 部分だけ抜き出す
+        const json = JSON.parse(txt.substr(47).slice(0, -2));
+        const rows = json.table.rows;
+        const list = document.getElementById("news-list");
+        list.innerHTML = "";
+
+        rows.forEach(row => {
+          // f: formatted, v: raw value
+          const cell = row.c[0] || {};
+          const dateStr = cell.f || cell.v || "";   // 先に f を使い、なければ v を使う
+          const text   = row.c[1]?.v || "";
+
+          const li = document.createElement("li");
+          li.textContent = `${dateStr}：${text}`;
+          list.appendChild(li);
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById("news-list").innerHTML =
+          "<li>お知らせの取得に失敗しました。</li>";
       });
-    });
-</script>
+  </script>
+</body>
+</html>
