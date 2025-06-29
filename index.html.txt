@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="名古屋市昭和区の鈴木内科クリニックの紹介サイト">
+  <title>鈴木内科 | 名古屋市昭和区の内科・呼吸器内科・アレルギー科・胃腸内科</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      background-color: #f7f7f7;
+      color: #333;
+    }
+    header {
+      background-color: #0077cc;
+      color: white;
+      padding: 1em;
+      text-align: center;
+    }
+    nav {
+      background-color: #eee;
+      padding: 1em;
+      text-align: center;
+    }
+    nav a {
+      margin: 0 1em;
+      text-decoration: none;
+      color: #0077cc;
+    }
+    main {
+      padding: 2em;
+      max-width: 800px;
+      margin: auto;
+      background-color: white;
+    }
+    section {
+      margin-bottom: 2em;
+    }
+    footer {
+      text-align: center;
+      padding: 1em;
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>鈴木内科</h1>
+    <p>名古屋市昭和区花見通りの地域密着型クリニック</p>
+  </header>
+
+  <nav>
+    <a href="#about">当院について</a>
+    <a href="#news">お知らせ</a>
+    <a href="#access">アクセス</a>
+  </nav>
+
+  <main>
+    <section id="about">
+      <h2>当院について</h2>
+      <p>鈴木内科は、名古屋市昭和区花見通りにある内科クリニックです。以下の診療科目に対応しております：</p>
+      <ul>
+        <li>内科</li>
+        <li>呼吸器内科</li>
+        <li>アレルギー科</li>
+        <li>胃腸内科</li>
+      </ul>
+      <p>地域の皆さまの健康を守るため、丁寧で安心できる診療を提供いたします。</p>
+    </section>
+
+    <section id="news">
+      <h2>お知らせ</h2>
+      <ul>
+        <li>2025年6月：夏季休診のお知らせを掲載しました。</li>
+        <li>2025年4月：新しい医師が着任しました。</li>
+      </ul>
+    </section>
+
+    <section id="access">
+      <h2>アクセス</h2>
+      <p>〒466-0821<br>
+      愛知県名古屋市昭和区花見通りX-X-X<br>
+      電話：052-XXX-XXXX</p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 鈴木内科. All Rights Reserved.
+  </footer>
+</body>
+</html>
