@@ -22,46 +22,49 @@
   <section id="news">
     <h2>お知らせ</h2>
     <ul id="news-list">
-      <!-- ここにスプレッドシートのお知らせが自動で入ります -->
+      <!-- ここにシートの内容が入ります -->
     </ul>
   </section>
 
-  <!-- 以下、他セクションは省略 -->
+  <!-- 以下、他のセクションは省略 -->
 
   <footer>
     <p>&copy; 2025 鈴木内科. All Rights Reserved.</p>
   </footer>
 
   <script>
-    // ① シートIDをセット
-    const sheetId = "1RwJONr5sVQNRBcleuAYxx_T0oh5BnpPdi0_1luGVZ90";
-    const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=Sheet1`;
+    (()=>{
+      // ★ ここにご自身のスプレッドシートIDを入れてください
+      const sheetId = "1RwJONr5sVQNRBcleuAYxx_T0oh5BnpPdi0_1luGVZ90";
+      // gid=0 は最初のシートの場合。別シートなら gid= シートID を調べて置き換え
+      const url = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=0`;
 
-    fetch(url)
-      .then(res => res.text())
-      .then(txt => {
-        // JSON 部分だけ抜き出す
-        const json = JSON.parse(txt.substr(47).slice(0, -2));
-        const rows = json.table.rows;
-        const list = document.getElementById("news-list");
-        list.innerHTML = "";
+      fetch(url)
+        .then(res => {
+          if (!res.ok) throw new Error("スプレッドシートの取得に失敗しました");
+          return res.text();
+        })
+        .then(csvText => {
+          const lines = csvText.trim().split("\n");
+          const list = document.getElementById("news-list");
+          list.innerHTML = "";
 
-        rows.forEach(row => {
-          // f: formatted, v: raw value
-          const cell = row.c[0] || {};
-          const dateStr = cell.f || cell.v || "";   // 先に f を使い、なければ v を使う
-          const text   = row.c[1]?.v || "";
+          lines.forEach(line => {
+            // CSV の A列, B列 (カンマで区切られている想定)
+            const [date, ...rest] = line.split(",");
+            const text = rest.join(","); // もし本文にカンマが入っていても対応
 
-          const li = document.createElement("li");
-          li.textContent = `${dateStr}：${text}`;
-          list.appendChild(li);
+            const li = document.createElement("li");
+            li.textContent = `${date}：${text}`;
+            list.appendChild(li);
+          });
+        })
+        .catch(err => {
+          console.error(err);
+          document.getElementById("news-list").innerHTML =
+            "<li>お知らせの取得に失敗しました。</li>";
         });
-      })
-      .catch(err => {
-        console.error(err);
-        document.getElementById("news-list").innerHTML =
-          "<li>お知らせの取得に失敗しました。</li>";
-      });
+    })();
   </script>
 </body>
 </html>
