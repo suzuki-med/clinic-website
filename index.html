@@ -1,39 +1,76 @@
-<script>
-(function () {
-  const sheetId = "1RwJONr5sVQNRBcleuAYxx_T0oh5BnpPdi0_1luGVZ90";
-  const url = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=0`;
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>鈴木内科｜名古屋市昭和区の地域密着型クリニック</title>
+  <style>
+    body { font-family: sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f9f9f9; }
+    header, footer, section { padding: 20px; max-width: 800px; margin: auto; background: white; margin-bottom: 10px; }
+    header { background-color: #0077cc; color: white; text-align: center; }
+    footer { font-size: 0.8em; text-align: center; color: #555; }
+    h2 { border-bottom: 2px solid #0077cc; padding-bottom: 5px; }
+    ul { padding-left: 1.2em; list-style-type: disc; }
+    ul li { margin-bottom: 0.5em; }
+    iframe { width: 100%; border: 0; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>鈴木内科</h1>
+    <p>名古屋市昭和区花見通にある地域密着型のクリニックです。<br>身近な「かかりつけ医」として、安心できる医療を提供しています。</p>
+  </header>
 
-  fetch(url)
-    .then(res => res.text())
-    .then(csv => {
-      const lines = csv.trim().split("\n");
+  <section id="news">
+    <h2>お知らせ</h2>
+    <ul id="news-list">
+      <li>読み込み中...</li>
+    </ul>
+  </section>
 
-      // ヘッダーがある場合は1行目を除外（なければ不要）
-      const data = lines.map(line => {
-        const [dateStr, ...rest] = line.split(",");
-        const text = rest.join(",");
-        const date = new Date(dateStr);
-        return { date, dateStr, text };
-      });
+  <!-- 以下省略（services, pricing, etc.） -->
 
-      // ▼ここで新しい順に並び替え（降順）
-      data.sort((a, b) => b.date - a.date);
+  <footer>
+    <p>&copy; 2025 鈴木内科. All Rights Reserved.</p>
+  </footer>
 
-      const ul = document.getElementById("news-list");
-      ul.innerHTML = "";
+  <script>
+    (function () {
+      const sheetId = "1RwJONr5sVQNRBcleuAYxx_T0oh5BnpPdi0_1luGVZ90";
+      const url = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=0`;
 
-      data.forEach(item => {
-        if (item.dateStr && item.text) {
-          const li = document.createElement("li");
-          li.textContent = `${item.dateStr}：${item.text}`;
-          ul.appendChild(li);
-        }
-      });
-    })
-    .catch(err => {
-      console.error("読み込みエラー:", err);
-      document.getElementById("news-list").innerHTML =
-        "<li>お知らせ取得に失敗しました。</li>";
-    });
-})();
-</script>
+      fetch(url)
+        .then(res => res.text())
+        .then(csv => {
+          const lines = csv.trim().split("\n");
+
+          const data = lines.map(line => {
+            const [dateStr, ...rest] = line.split(",");
+            const text = rest.join(",");
+            const date = new Date(dateStr);
+            return { date, dateStr, text };
+          });
+
+          // 日付で新しい順にソート
+          data.sort((a, b) => b.date - a.date);
+
+          const ul = document.getElementById("news-list");
+          ul.innerHTML = "";
+
+          data.forEach(item => {
+            if (item.dateStr && item.text) {
+              const li = document.createElement("li");
+              li.textContent = `${item.dateStr}：${item.text}`;
+              ul.appendChild(li);
+            }
+          });
+        })
+        .catch(err => {
+          console.error("読み込みエラー:", err);
+          document.getElementById("news-list").innerHTML =
+            "<li>お知らせ取得に失敗しました。</li>";
+        });
+    })();
+  </script>
+</body>
+</html>
