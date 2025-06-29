@@ -22,8 +22,7 @@
   <section id="news">
     <h2>お知らせ</h2>
     <ul id="news-list">
-      <li>2025年6月29日：本日は臨時休診とさせていただきます。</li>
-      <li>2025年6月20日：夏季インフルエンザワクチンの予約受付を開始しました。</li>
+      <!-- Googleスプレッドシートの内容がここに自動表示されます -->
     </ul>
   </section>
 
@@ -96,7 +95,7 @@
 
   <script>
     // Google スプレッドシートからお知らせを読み込む処理（ID差し替え要）
-    const sheetId = "YOUR_SPREADSHEET_ID_HERE";
+    const sheetId = "1RwJONr5sVQNRBcleuAYxx_T0oh5BnpPdi0_1luGVZ90";
     const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=Sheet1`;
 
     fetch(url)
