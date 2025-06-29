@@ -21,7 +21,7 @@
 
   <section id="news">
     <h2>お知らせ</h2>
-    <ul>
+    <ul id="news-list">
       <li>2025年6月29日：本日は臨時休診とさせていただきます。</li>
       <li>2025年6月20日：夏季インフルエンザワクチンの予約受付を開始しました。</li>
     </ul>
@@ -93,5 +93,27 @@
   <footer>
     <p>&copy; 2025 鈴木内科. All Rights Reserved.</p>
   </footer>
+
+  <script>
+    // Google スプレッドシートからお知らせを読み込む処理（ID差し替え要）
+    const sheetId = "YOUR_SPREADSHEET_ID_HERE";
+    const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=Sheet1`;
+
+    fetch(url)
+      .then(res => res.text())
+      .then(data => {
+        const json = JSON.parse(data.substr(47).slice(0, -2));
+        const rows = json.table.rows;
+        const list = document.getElementById("news-list");
+        list.innerHTML = "";
+        rows.forEach(row => {
+          const date = row.c[0]?.v || "";
+          const text = row.c[1]?.v || "";
+          const li = document.createElement("li");
+          li.textContent = `${date}：${text}`;
+          list.appendChild(li);
+        });
+      });
+  </script>
 </body>
 </html>
