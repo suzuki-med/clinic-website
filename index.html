@@ -71,7 +71,12 @@
   <section id="access">
     <h2>■ アクセス</h2>
     <p>〒466-0821<br>愛知県名古屋市昭和区花見通2-10<br>地下鉄鶴舞線「いりなか駅」より徒歩8分<br>地下鉄鶴舞線「川名駅」より徒歩7分<br>駐車場：4台分あり</p>
-    <iframe src="https://maps.google.com/maps?q=愛知県名古屋市昭和区花見通2-10&t=&z=15&ie=UTF8&iwloc=&output=embed" height="300" allowfullscreen loading="lazy"></iframe>
+    <iframe
+      src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=名古屋市昭和区花見通2-10"
+      height="300"
+      allowfullscreen
+      loading="lazy">
+    </iframe>
   </section>
 
   <section id="contact">
@@ -99,7 +104,7 @@
             return { date, dateStr, text };
           });
 
-          data.sort((a, b) => b.date - a.date); // 日付で新しい順にソート
+          data.sort((a, b) => b.date - a.date); // 新しい順
 
           const ul = document.getElementById("news-list");
           ul.innerHTML = "";
@@ -114,7 +119,8 @@
         })
         .catch(err => {
           console.error("読み込みエラー:", err);
-          document.getElementById("news-list").innerHTML = "<li>お知らせ取得に失敗しました。</li>";
+          document.getElementById("news-list").innerHTML =
+            "<li>お知らせ取得に失敗しました。</li>";
         });
     })();
   </script>
