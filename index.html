@@ -65,17 +65,21 @@
 
   <section id="greeting">
     <h2>■ ごあいさつ・診療方針</h2>
-    <p>当院は、地域の皆さまに信頼される「かかりつけ医」を目指しています。<br>患者様の不安や不調に寄り添い、必要に応じて専門医療機関とも連携しながら、最適な医療を提供してまいります。</p>
+    <p>当院は、地域の皆さまに信頼される「かかりつけ医」を目指しています。患者様の不安や不調に寄り添い、必要に応じて専門医療機関とも連携しながら、最適な医療を提供してまいります。</p>
   </section>
 
   <section id="access">
     <h2>■ アクセス</h2>
-    <p>〒466-0821<br>愛知県名古屋市昭和区花見通2-10<br>地下鉄鶴舞線「いりなか駅」より徒歩8分<br>地下鉄鶴舞線「川名駅」より徒歩7分<br>駐車場：4台分あり</p>
+    <p>
+      〒466-0821<br>
+      愛知県名古屋市昭和区花見通2-10<br>
+      地下鉄鶴舞線「いりなか駅」より徒歩8分<br>
+      地下鉄鶴舞線「川名駅」より徒歩7分<br>
+      駐車場：4台分あり
+    </p>
     <iframe
-      src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=名古屋市昭和区花見通2-10"
-      height="300"
-      allowfullscreen
-      loading="lazy">
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.305291543847!2d136.94705!3d35.152401!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600370cd43c204a9%3A0x50a5b3f6feee901b!2z5ZCN5Y-k5bGL5a6u5biC!5e0!3m2!1sja!2sjp!4v1591325693345!5m2!1sja!2sjp"
+      width="100%" height="300" allowfullscreen loading="lazy">
     </iframe>
   </section>
 
@@ -97,6 +101,7 @@
         .then(res => res.text())
         .then(csv => {
           const lines = csv.trim().split("\n");
+
           const data = lines.map(line => {
             const [dateStr, ...rest] = line.split(",");
             const text = rest.join(",");
@@ -104,7 +109,7 @@
             return { date, dateStr, text };
           });
 
-          data.sort((a, b) => b.date - a.date); // 新しい順
+          data.sort((a, b) => b.date - a.date); // 新しい順にソート
 
           const ul = document.getElementById("news-list");
           ul.innerHTML = "";
