@@ -28,7 +28,7 @@
     </ul>
   </section>
 
-  <!-- 以下省略（services, pricing, etc.） -->
+  <!-- 他のセクションは省略可能 -->
 
   <footer>
     <p>&copy; 2025 鈴木内科. All Rights Reserved.</p>
@@ -44,15 +44,13 @@
         .then(csv => {
           const lines = csv.trim().split("\n");
 
+          // データを日付順で降順に並び替え
           const data = lines.map(line => {
             const [dateStr, ...rest] = line.split(",");
             const text = rest.join(",");
             const date = new Date(dateStr);
             return { date, dateStr, text };
-          });
-
-          // 日付で新しい順にソート
-          data.sort((a, b) => b.date - a.date);
+          }).sort((a, b) => b.date - a.date);
 
           const ul = document.getElementById("news-list");
           ul.innerHTML = "";
@@ -67,8 +65,7 @@
         })
         .catch(err => {
           console.error("読み込みエラー:", err);
-          document.getElementById("news-list").innerHTML =
-            "<li>お知らせ取得に失敗しました。</li>";
+          document.getElementById("news-list").innerHTML = "<li>お知らせ取得に失敗しました。</li>";
         });
     })();
   </script>
