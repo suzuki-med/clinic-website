@@ -3,8 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="index,follow">
   <title>鈴木内科｜名古屋市昭和区の地域密着型クリニック</title>
+  <meta name="description" content="名古屋市昭和区にある内科・呼吸器内科・アレルギー疾患内科・胃腸内科。地域密着型のクリニックです。" />
+  <meta name="keywords" content="鈴木内科, 名古屋市, 内科, 呼吸器, アレルギー, 胃腸, クリニック, 医院" />
+  <meta property="og:title" content="鈴木内科｜名古屋市昭和区の地域密着型クリニック" />
+  <meta property="og:description" content="名古屋市昭和区で安心の地域医療を提供する鈴木内科の公式サイトです。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://suzuki-med.github.io/clinic-website/" />
+  <meta property="og:image" content="https://suzuki-med.github.io/clinic-website/ogp.png" />
   <style>
     body { font-family: sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f9f9f9; }
     header, footer, section { padding: 20px; max-width: 800px; margin: auto; background: white; margin-bottom: 10px; }
@@ -56,6 +62,7 @@
 
   <section id="infection">
     <h2>■ 外来感染対策の取り組み</h2>
+    <p>当院では、院内感染防止のため以下のような標準感染対策を実施しております：</p>
     <ul>
       <li>発熱や咳などの症状がある患者様には、受診時に問診・体調確認を行っています。</li>
       <li>医師・スタッフはマスク着用・手指消毒を徹底し、診察毎の環境清拭を実施しています。</li>
@@ -72,8 +79,7 @@
   <section id="access">
     <h2>■ アクセス</h2>
     <p>〒466-0821<br>愛知県名古屋市昭和区花見通2-10<br>地下鉄鶴舞線「いりなか駅」より徒歩8分<br>地下鉄鶴舞線「川名駅」より徒歩7分<br>駐車場：4台分あり</p>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.3298793155927!2d136.9514448!3d35.1471251!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600370cf7e4fa84f%3A0x3ae649fdfd4a2380!2z5ZCN5Y-k5bGL5a6u5biC!5e0!3m2!1sja!2sjp!4v1719729999999!5m2!1sja!2sjp"
-      width="100%" height="300" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.323964517346!2d136.9515504786944!3d35.14727815826492!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600370cf7e4fa84f%3A0x3ae649fdfd4a2380!2z6Z2S5ZCN5Y-k5bGL!5e0!3m2!1sja!2sjp!4v1719716520000!5m2!1sja!2sjp" height="300" allowfullscreen loading="lazy"></iframe>
   </section>
 
   <section id="contact">
@@ -99,17 +105,19 @@
             const text = rest.join(",");
             const date = new Date(dateStr);
             return { date, dateStr, text };
-          }).filter(item => item.dateStr && item.text);
+          });
 
-          data.sort((a, b) => b.date - a.date); // 新しい順にソート
+          data.sort((a, b) => b.date - a.date);
 
           const ul = document.getElementById("news-list");
           ul.innerHTML = "";
 
           data.forEach(item => {
-            const li = document.createElement("li");
-            li.textContent = `${item.dateStr}：${item.text}`;
-            ul.appendChild(li);
+            if (item.dateStr && item.text) {
+              const li = document.createElement("li");
+              li.textContent = `${item.dateStr}：${item.text}`;
+              ul.appendChild(li);
+            }
           });
         })
         .catch(err => {
