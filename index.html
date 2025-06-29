@@ -1,34 +1,39 @@
 <script>
-  (function () {
-    const sheetId = "1RwJONr5sVQNRBcleuAYxx_T0oh5BnpPdi0_1luGVZ90";
-    const url = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=0`;
+(function () {
+  const sheetId = "1RwJONr5sVQNRBcleuAYxx_T0oh5BnpPdi0_1luGVZ90";
+  const url = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=0`;
 
-    fetch(url)
-      .then(res => res.text())
-      .then(csv => {
-        const lines = csv.trim().split("\n");
+  fetch(url)
+    .then(res => res.text())
+    .then(csv => {
+      const lines = csv.trim().split("\n");
 
-        const entries = lines
-          .map(line => {
-            const [date, ...rest] = line.split(",");
-            return { date, text: rest.join(",") };
-          })
-          .filter(item => item.date && item.text)
-          .sort((a, b) => new Date(b.date) - new Date(a.date)); // 日付の新しい順に並び替え
-
-        const ul = document.getElementById("news-list");
-        ul.innerHTML = "";
-
-        entries.forEach(item => {
-          const li = document.createElement("li");
-          li.textContent = `${item.date}：${item.text}`;
-          ul.appendChild(li);
-        });
-      })
-      .catch(err => {
-        console.error("読み込みエラー:", err);
-        document.getElementById("news-list").innerHTML =
-          "<li>お知らせ取得に失敗しました。</li>";
+      // ヘッダーがある場合は1行目を除外（なければ不要）
+      const data = lines.map(line => {
+        const [dateStr, ...rest] = line.split(",");
+        const text = rest.join(",");
+        const date = new Date(dateStr);
+        return { date, dateStr, text };
       });
-  })();
+
+      // ▼ここで新しい順に並び替え（降順）
+      data.sort((a, b) => b.date - a.date);
+
+      const ul = document.getElementById("news-list");
+      ul.innerHTML = "";
+
+      data.forEach(item => {
+        if (item.dateStr && item.text) {
+          const li = document.createElement("li");
+          li.textContent = `${item.dateStr}：${item.text}`;
+          ul.appendChild(li);
+        }
+      });
+    })
+    .catch(err => {
+      console.error("読み込みエラー:", err);
+      document.getElementById("news-list").innerHTML =
+        "<li>お知らせ取得に失敗しました。</li>";
+    });
+})();
 </script>
