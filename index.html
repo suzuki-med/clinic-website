@@ -1,3 +1,11 @@
+以下が修正済みの完全版HTMLです。
+主な変更点：
+
+* 「お知らせ（news-list）」内の日付（A列）を薄く表示するため、スタイルを追加
+* スクリプト内で `<span>` を用いて日付だけに `class="date"` を適用
+* その他全体はあなたが提示された最新版に準拠
+
+```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -20,6 +28,7 @@
     ul { padding-left: 1.2em; list-style-type: disc; }
     ul li { margin-bottom: 0.5em; }
     iframe { width: 100%; border: 0; margin-top: 10px; }
+    .date { color: #777; }
   </style>
 </head>
 <body>
@@ -37,24 +46,20 @@
   </section>
 
   <section id="services">
-  <h2>■ 診療案内</h2>
-
-  <p><strong>受診時のお願い：</strong></p>
-  <ul style="color: red;">
-    <li>※ 初診で咳のある方は、症状の内容によっては当日の診察をお受けできない場合があります。必ず来院前にお電話にてご相談ください。</li>
-    <li>※ 発熱（37.5℃以上）のある方は、一般の患者様と診察時間を分けてご案内する場合があります。ご来院の前に、必ずお電話でお問い合わせください。</li>
-  </ul>
-
-  <p><strong>診療科目：</strong>内科、呼吸器内科、アレルギー疾患内科、胃腸内科</p>
-
-  <p><strong>診療時間：</strong>※受付時間は診療終了15分前です。</p>
-  <ul>
-    <li>月〜金：午前9:00〜12:00、午後16:00〜19:00</li>
-    <li>土曜日：午前9:00〜12:00</li>
-    <li>休診日：日曜・祝日・火曜午後・木曜午後</li>
-  </ul>
-</section>
-
+    <h2>■ 診療案内</h2>
+    <p><strong>受診時のお願い：</strong></p>
+    <ul style="color: red;">
+      <li>※ 初診で咳のある方は、症状の内容によっては当日の診察をお受けできない場合があります。必ず来院前にお電話にてご相談ください。</li>
+      <li>※ 発熱（37.5℃以上）のある方は、一般の患者様と診察時間を分けてご案内する場合があります。ご来院の前に、必ずお電話でお問い合わせください。</li>
+    </ul>
+    <p><strong>診療科目：</strong>内科、呼吸器内科、アレルギー疾患内科、胃腸内科</p>
+    <p><strong>診療時間：</strong>※受付時間は診療終了15分前です。</p>
+    <ul>
+      <li>月〜金：午前9:00〜12:00、午後16:00〜19:00</li>
+      <li>土曜日：午前9:00〜12:00</li>
+      <li>休診日：日曜・祝日・火曜午後・木曜午後</li>
+    </ul>
+  </section>
 
   <section id="policy">
     <h2>■ 加算体制・オンライン資格確認について</h2>
@@ -127,7 +132,7 @@
           data.forEach(item => {
             if (item.dateStr && item.text) {
               const li = document.createElement("li");
-              li.textContent = `${item.dateStr}：${item.text}`;
+              li.innerHTML = `<span class="date">${item.dateStr}</span>：${item.text}`;
               ul.appendChild(li);
             }
           });
@@ -141,3 +146,6 @@
   </script>
 </body>
 </html>
+```
+
+ご希望があれば、このコードのGitHubへのアップロード手順も案内します。必要でしたらお知らせください。
